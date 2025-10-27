@@ -5,6 +5,8 @@ slug = "chococake"
 description = "チョコケーキAのレシピです。"
 tags = ["チョコ"]
 featured = "PXL_20250318_112536220.jpg"
+heroAlt = "Baked chocolate cake dusted with cocoa on a serving board"
+heroCaption = "焼き上がったチョコレートケーキに粉砂糖をふった様子。"
 tools = []
 [recipe]
   serves = "2人分"

@@ -126,6 +126,33 @@
   font-variant-numeric: tabular-nums;
   color: var(--gray-500);
 }
+
+.recipe-hero {
+  margin: 0 0 1.75rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: var(--body-background);
+  box-shadow: 0 18px 45px rgba(0,0,0,.08);
+}
+.recipe-hero picture,
+.recipe-hero img {
+  display: block;
+  width: 100%;
+}
+.recipe-hero img {
+  height: auto;
+  object-fit: cover;
+}
+.recipe-hero figcaption {
+  font-size: .85rem;
+  color: var(--gray-500);
+  padding: .6rem 1rem .75rem;
+  background: rgba(0,0,0,.04);
+}
+html.dark .recipe-hero figcaption {
+  background: rgba(255,255,255,.08);
+}
+
 .ingredient-item.is-checked .ingredient-name,
 .recipe-tool-item.is-checked .recipe-tool-label {
   text-decoration: line-through;
