@@ -1,0 +1,21 @@
+﻿{{ $groups := .Page.Params.ingredients }}
+{{ if not $groups }}
+  {{ warnf "ingredients shortcode requires [[ingredients]] front matter on %s" .Page.Path }}
+{{ else }}
+  <section class="ingredient-groups">
+    {{ range $groups }}
+      <article class="ingredient-group">
+        {{ with .group }}<h3>{{ . }}</h3>{{ end }}
+        <ul>
+          {{ range .items }}
+            <li>
+              <span class="ingredient-name">{{ .name }}</span>
+              <span class="ingredient-amount">{{ .amount }}</span>
+              {{ with .note }}<span class="ingredient-note">{{ . }}</span>{{ end }}
+            </li>
+          {{ end }}
+        </ul>
+      </article>
+    {{ end }}
+  </section>
+{{ end }}

@@ -1,0 +1,25 @@
+﻿{{ $steps := .Page.Params.steps }}
+{{ if not $steps }}
+  {{ warnf "recipe-steps shortcode requires [[steps]] front matter on %s" .Page.Path }}
+{{ else }}
+  <section class="recipe-steps">
+    <ol>
+      {{ range $index, $step := $steps }}
+        <li>
+          <header>
+            <span class="step-index">{{ printf "%02d" (add $index 1) }}</span>
+            <div class="step-title">
+              <h3>{{ $step.title }}</h3>
+              <div class="step-meta">
+                {{ with $step.timer }}<span>⏱ {{ i18n "recipeTimerLabel" }}: {{ . }}</span>{{ end }}
+                {{ with $step.heat }}<span>🔥 {{ i18n "recipeHeatLabel" }}: {{ . }}</span>{{ end }}
+              </div>
+            </div>
+          </header>
+          <div class="step-body">{{ $step.detail | markdownify }}</div>
+          {{ with $step.tip }}<p class="step-tip">💡 {{ . }}</p>{{ end }}
+        </li>
+      {{ end }}
+    </ol>
+  </section>
+{{ end }}

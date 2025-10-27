@@ -1,0 +1,51 @@
+baseURL = "/"
+title = "Hearth Recipes"
+defaultContentLanguage = "ja"
+defaultContentLanguageInSubdir = true
+hasCJKLanguage = true
+enableRobotsTXT = true
+sectionPagesMenu = "main"
+timeZone = "Asia/Tokyo"
+
+[module]
+  [[module.imports]]
+    path = "github.com/alex-shpak/hugo-book"
+
+[params]
+  BookTheme = "auto"
+  BookLogo = "images/logo.svg"
+  BookDateFormat = "2006-01-02"
+  BookSearch = true
+  BookToC = true
+  BookPortableLinks = true
+  BookSection = "content"
+  description = "Multilingual foil-friendly recipes inspired by Japanese home cooking"
+
+[languages]
+  [languages.ja]
+    weight = 1
+    title = "ヘルスレシピ"
+    languageName = "日本語"
+    contentDir = "content/ja"
+    [languages.ja.params]
+      description = "包み焼きなど、手元で見やすい多言語レシピ集"
+
+  [languages.en]
+    weight = 2
+    title = "Hearth Recipes"
+    languageName = "English"
+    contentDir = "content/en"
+    [languages.en.params]
+      description = "Japanese-inspired home cooking for busy weeknights"
+
+[outputs]
+  home = ["HTML", "RSS"]
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    ordered = true
+    endLevel = 3
+    startLevel = 2
+

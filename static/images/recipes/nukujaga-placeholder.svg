@@ -1,0 +1,19 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffecd2"/>
+      <stop offset="100%" stop-color="#fcb69f"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bg)"/>
+  <g fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.8">
+    <path d="M120 300c0-60 80-110 200-110s200 50 200 110"/>
+    <path d="M140 320h360c0 60-80 110-180 110s-180-50-180-110z" fill="#fff" fill-opacity="0.2"/>
+    <circle cx="220" cy="265" r="28"/>
+    <circle cx="320" cy="230" r="22"/>
+    <circle cx="410" cy="270" r="30"/>
+  </g>
+  <text x="50%" y="55%" text-anchor="middle" font-family="'Segoe UI', 'Hiragino Sans', sans-serif" font-size="42" fill="#ffffff" opacity="0.9">
+    Nikujaga Sample
+  </text>
+</svg>

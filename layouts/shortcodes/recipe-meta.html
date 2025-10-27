@@ -1,0 +1,34 @@
+﻿{{ $recipe := .Page.Params.recipe }}
+{{ if not $recipe }}
+  {{ warnf "recipe-meta shortcode requires [recipe] front matter on %s" .Page.Path }}
+{{ else }}
+  {{ $fields := slice
+      (dict "key" "prep" "label" (i18n "recipePrep"))
+      (dict "key" "cook" "label" (i18n "recipeCook"))
+      (dict "key" "rest" "label" (i18n "recipeRest"))
+      (dict "key" "serves" "label" (i18n "recipeServes"))
+      (dict "key" "difficulty" "label" (i18n "recipeDifficulty"))
+  }}
+  <section class="recipe-meta-card">
+    <div class="recipe-meta-card__grid">
+      {{ range $fields }}
+        {{ $label := .label }}
+        {{ with index $recipe .key }}
+          <div class="recipe-meta-card__item">
+            <p class="recipe-meta-card__label">{{ $label }}</p>
+            <p class="recipe-meta-card__value">{{ . }}</p>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+    {{ with $recipe.tags }}
+      <div class="recipe-meta-card__tags">
+        <span class="recipe-meta-card__label">{{ i18n "recipeTags" }}</span>
+        {{ range . }}<span class="recipe-meta-card__tag">{{ . }}</span>{{ end }}
+      </div>
+    {{ end }}
+    {{ with $recipe.inspiration }}
+      <p class="recipe-meta-card__note">{{ i18n "recipeInspiration" }}: <a href="{{ . }}" target="_blank" rel="noopener">{{ . }}</a></p>
+    {{ end }}
+  </section>
+{{ end }}

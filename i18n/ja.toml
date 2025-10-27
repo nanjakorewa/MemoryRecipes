@@ -1,0 +1,50 @@
+[recipePrep]
+other = "下準備"
+
+[recipeCook]
+other = "加熱"
+
+[recipeRest]
+other = "仕上げ待ち"
+
+[recipeServes]
+other = "分量"
+
+[recipeDifficulty]
+other = "難易度"
+
+[recipeTags]
+other = "タグ"
+
+[recipeInspiration]
+other = "参考"
+
+[recipeToolsHeading]
+other = "使用する道具"
+
+[recipeNotesHeading]
+other = "コツ・ポイント"
+
+[recipeTimerLabel]
+other = "目安"
+
+[recipeHeatLabel]
+other = "火加減"
+
+[Logo]
+other = "ロゴ"
+
+[Languages]
+other = "言語"
+
+[Expand]
+other = "開く"
+
+[Menu]
+other = "メニュー"
+
+[Categories]
+other = "カテゴリー"
+
+[Tags]
+other = "タグ"

@@ -1,0 +1,9 @@
+﻿{{ $tools := .Page.Params.tools }}
+{{ if $tools }}
+  <section class="recipe-tools">
+    <h3>{{ i18n "recipeToolsHeading" }}</h3>
+    <ul>
+      {{ range $tools }}<li>{{ . }}</li>{{ end }}
+    </ul>
+  </section>
+{{ end }}

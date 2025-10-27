@@ -1,0 +1,50 @@
+[recipePrep]
+other = "Prep"
+
+[recipeCook]
+other = "Cook"
+
+[recipeRest]
+other = "Rest"
+
+[recipeServes]
+other = "Serves"
+
+[recipeDifficulty]
+other = "Difficulty"
+
+[recipeTags]
+other = "Tags"
+
+[recipeInspiration]
+other = "Inspired by"
+
+[recipeToolsHeading]
+other = "Tools & Gear"
+
+[recipeNotesHeading]
+other = "Chef Notes"
+
+[recipeTimerLabel]
+other = "Timer"
+
+[recipeHeatLabel]
+other = "Heat"
+
+[Logo]
+other = "Logo"
+
+[Languages]
+other = "Languages"
+
+[Expand]
+other = "Expand"
+
+[Menu]
+other = "Menu"
+
+[Categories]
+other = "Categories"
+
+[Tags]
+other = "Tags"

@@ -1,0 +1,7 @@
+﻿{{ $title := .Get "title" | default (i18n "recipeNotesHeading") }}
+<section class="kitchen-notes">
+  <h3>{{ $title }}</h3>
+  <div class="kitchen-notes__body">
+    {{ .Inner | markdownify }}
+  </div>
+</section>
