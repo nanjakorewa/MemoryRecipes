@@ -1,0 +1,4 @@
+{{- $content := .Page.RenderString (dict "display" "block") (.Inner) -}}
+<div class="recipe-gallery">
+  {{- $content | safeHTML -}}
+</div>

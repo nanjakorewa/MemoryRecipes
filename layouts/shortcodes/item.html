@@ -1,0 +1,42 @@
+{{- $name := "" -}}
+{{- $amount := "" -}}
+{{- $note := "" -}}
+{{- if ge (len .Params) 1 -}}
+  {{- $name = index .Params 0 -}}
+{{- end -}}
+{{- if ge (len .Params) 2 -}}
+  {{- $amount = index .Params 1 -}}
+{{- end -}}
+{{- if ge (len .Params) 3 -}}
+  {{- $note = index .Params 2 -}}
+{{- end -}}
+{{- if not $name -}}
+  {{- warnf "item shortcode requires at least a name on %s" .Page.Path -}}
+{{- else -}}
+  {{- $pageKey := "" -}}
+  {{- with .Page.File -}}
+    {{- $pageKey = .UniqueID -}}
+  {{- else -}}
+    {{- $pageKey = md5 $.Page.RelPermalink -}}
+  {{- end -}}
+  {{- $hash := md5 (printf "%s-%s-%s" $name $amount $note) -}}
+  {{- $checkID := printf "%s-legacy-item-%s" $pageKey $hash -}}
+  <span class="legacy-ingredient">
+    <label class="ingredient-check-label">
+      <input
+        type="checkbox"
+        class="ingredient-check"
+        data-check-type="ingredient"
+        data-check-id="{{ $checkID }}"
+        data-check-name="{{ $name | plainify }}"
+        data-check-amount="{{ $amount | plainify }}"
+      />
+      <span class="ingredient-check-faux" aria-hidden="true"></span>
+      <span class="ingredient-lines">
+        <span class="ingredient-name">{{ $name }}</span>
+        {{- if $amount -}}<span class="ingredient-amount">{{ $amount }}</span>{{- end -}}
+      </span>
+    </label>
+    {{- with $note -}}<span class="ingredient-note">{{ . }}</span>{{- end -}}
+  </span>
+{{- end -}}

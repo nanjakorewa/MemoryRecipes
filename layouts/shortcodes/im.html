@@ -1,0 +1,21 @@
+{{- $src := "" -}}
+{{- if and .Params (ge (len .Params) 1) -}}
+  {{- $src = index .Params 0 -}}
+{{- end -}}
+{{- $alt := "" -}}
+{{- if and .Params (ge (len .Params) 2) -}}
+  {{- $alt = index .Params 1 -}}
+{{- end -}}
+{{- $imgURL := "/images/recipes/nukujaga-placeholder.svg" -}}
+{{- $page := .Page -}}
+{{- if $src -}}
+  {{- with $page.Resources.GetMatch $src -}}
+    {{- $imgURL = .RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+{{- if and (not $alt) $src -}}
+  {{- $alt = (path.Base $src) -}}
+{{- end -}}
+<figure class="recipe-gallery-item">
+  <img src="{{ $imgURL }}" alt="{{ $alt }}" loading="lazy" />
+</figure>

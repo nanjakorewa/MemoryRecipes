@@ -1,0 +1,15 @@
+{{- $seconds := 0 -}}
+{{- if and .Params (ge (len .Params) 1) -}}
+  {{- $seconds = int (index .Params 0) -}}
+{{- end -}}
+{{- $label := "" -}}
+{{- if and .Params (ge (len .Params) 2) -}}
+  {{- $label = index .Params 1 -}}
+{{- else -}}
+  {{- if gt $seconds 0 -}}
+    {{- $label = printf "%d秒" $seconds -}}
+  {{- end -}}
+{{- end -}}
+<span class="recipe-timer"{{ if gt $seconds 0 }} data-seconds="{{ $seconds }}"{{ end }}>
+  {{- if $label -}}{{ $label | safeHTML }}{{- end -}}
+</span>

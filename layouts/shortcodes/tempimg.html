@@ -1,0 +1,7 @@
+{{- $alt := "Image coming soon" -}}
+{{- if and .Params (ge (len .Params) 1) -}}
+  {{- $alt = index .Params 0 -}}
+{{- end -}}
+<figure class="recipe-gallery-item placeholder">
+  <img src="/images/recipes/nukujaga-placeholder.svg" alt="{{ $alt }}" loading="lazy" />
+</figure>
