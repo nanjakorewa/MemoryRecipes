@@ -4,7 +4,7 @@ weight = 1
 slug = "chococake"
 description = "チョコケーキAのレシピです。"
 tags = ["チョコ"]
-featured = "/images/recipes/nukujaga-placeholder.svg"
+featured = "PXL_20250318_112536220.jpg"
 tools = []
 [recipe]
   serves = "2人分"
