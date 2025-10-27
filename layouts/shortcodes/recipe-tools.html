@@ -1,9 +1,30 @@
 ﻿{{ $tools := .Page.Params.tools }}
 {{ if $tools }}
+  {{ $pageKey := "" }}
+  {{ with .Page.File }}
+    {{ $pageKey = .UniqueID }}
+  {{ else }}
+    {{ $pageKey = md5 $.Page.RelPermalink }}
+  {{ end }}
   <section class="recipe-tools">
     <h3>{{ i18n "recipeToolsHeading" }}</h3>
     <ul>
-      {{ range $tools }}<li>{{ . }}</li>{{ end }}
+      {{ range $idx, $tool := $tools }}
+        {{ $checkID := printf "%s-tool-%d" $pageKey $idx }}
+        <li class="recipe-tool-item">
+          <label>
+            <input
+              type="checkbox"
+              class="recipe-check"
+              data-check-type="tool"
+              data-check-id="{{ $checkID }}"
+              data-check-name="{{ $tool | plainify }}"
+            />
+            <span class="recipe-check-faux" aria-hidden="true"></span>
+            <span class="recipe-tool-label">{{ $tool }}</span>
+          </label>
+        </li>
+      {{ end }}
     </ul>
   </section>
 {{ end }}

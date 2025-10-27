@@ -40,6 +40,7 @@
   margin-top: .75rem;
   font-size: .85rem;
 }
+
 .ingredient-groups {
   margin: 2rem 0;
   display: grid;
@@ -58,38 +59,113 @@
   padding: 0;
   margin: 0;
   display: grid;
-  gap: .4rem;
+  gap: .35rem;
 }
-.ingredient-group li {
-  display: grid;
-  grid-template-columns: 1fr auto;
+.ingredient-item {
+  border-radius: .65rem;
+  padding: .35rem .25rem .35rem .1rem;
+  transition: background .2s ease, transform .2s ease;
+}
+.ingredient-item.is-checked {
+  background: rgba(255,107,53,.08);
+}
+.ingredient-check-label {
+  display: flex;
+  gap: .75rem;
+  align-items: flex-start;
+  cursor: pointer;
+  position: relative;
+  padding-left: 1.6rem;
+}
+.ingredient-check,
+.recipe-check {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.ingredient-check-faux,
+.recipe-check-faux {
+  position: absolute;
+  left: 0;
+  top: .2rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: .35rem;
+  border: 2px solid var(--border);
+  background: var(--body-background);
+  transition: all .2s ease;
+  box-shadow: inset 0 0 0 0 transparent;
+}
+.ingredient-check:checked + .ingredient-check-faux,
+.recipe-check:checked + .recipe-check-faux {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 6px 16px rgba(255,107,53,.35);
+}
+.ingredient-check:checked + .ingredient-check-faux::after,
+.recipe-check:checked + .recipe-check-faux::after {
+  content: '';
+  position: absolute;
+  width: .3rem;
+  height: .6rem;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  left: .34rem;
+  top: .1rem;
+  transform: rotate(45deg);
+}
+.ingredient-lines {
+  display: flex;
+  flex-wrap: wrap;
   gap: .5rem;
-  align-items: baseline;
 }
 .ingredient-name {
-  font-weight: 500;
+  font-weight: 600;
 }
 .ingredient-amount {
   font-variant-numeric: tabular-nums;
+  color: var(--gray-500);
+}
+.ingredient-item.is-checked .ingredient-name,
+.recipe-tool-item.is-checked .recipe-tool-label {
+  text-decoration: line-through;
+  opacity: .65;
 }
 .ingredient-note {
-  grid-column: 1 / -1;
+  display: block;
+  padding-left: 1.6rem;
   font-size: .8rem;
   color: var(--gray-500);
 }
+
 .recipe-tools {
   border-left: 4px solid var(--accent);
   padding-left: 1rem;
   margin: 1.5rem 0;
 }
 .recipe-tools ul {
+  list-style: none;
   margin: .5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: .35rem;
 }
+.recipe-tool-item label {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+  position: relative;
+  padding-left: 1.6rem;
+  cursor: pointer;
+}
+.recipe-tool-label {
+  font-size: .95rem;
+}
+
 .recipe-steps {
   margin: 2rem 0;
 }
 .recipe-steps ol {
-  counter-reset: steps;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -118,10 +194,41 @@
   font-weight: 600;
   color: var(--accent, #ff6b35);
 }
+.step-title h3 {
+  margin: 0;
+}
 .step-meta {
   display: flex;
-  gap: .75rem;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .4rem;
+}
+.step-meta__chip {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  padding: .15rem .9rem;
   font-size: .85rem;
+  line-height: 1.2;
+  display: inline-flex;
+  gap: .3rem;
+  align-items: center;
+}
+.step-meta__chip--timer {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255,107,53,.1);
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.step-meta__chip--timer:hover,
+.step-meta__chip--timer:focus-visible {
+  background: rgba(255,107,53,.18);
+}
+.step-meta__chip--timer.is-active {
+  background: var(--accent);
+  color: #fff;
+}
+.step-meta__chip--heat {
   color: var(--gray-500);
 }
 .step-body {
@@ -132,12 +239,129 @@
   font-size: .85rem;
   color: var(--accent, #ff6b35);
 }
+
 .kitchen-notes {
   margin: 2rem 0;
   padding: 1rem 1.25rem;
   border-radius: .75rem;
   background: var(--accent-soft, rgba(255,107,53,.1));
 }
+
+.recipe-timer-widget {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.25rem;
+  z-index: 60;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: .75rem;
+}
+.recipe-timer-fab {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.35rem;
+  box-shadow: 0 18px 30px rgba(255,107,53,.35);
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+.recipe-timer-widget.is-alert .recipe-timer-fab {
+  animation: pulse 1.5s infinite;
+}
+.recipe-timer-widget.is-running .recipe-timer-fab {
+  transform: rotate(-8deg);
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,107,53,.5); }
+  70% { box-shadow: 0 0 0 15px rgba(255,107,53,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,107,53,0); }
+}
+.recipe-timer-panel {
+  width: 320px;
+  max-width: calc(100vw - 2rem);
+  background: var(--body-background);
+  border-radius: 1.25rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+  padding: 1rem 1.25rem 1.25rem;
+  transition: opacity .25s ease, transform .25s ease;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1rem);
+}
+.recipe-timer-widget.is-open .recipe-timer-panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.recipe-timer-panel__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.recipe-timer-panel__eyebrow {
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin: 0;
+}
+.recipe-timer-panel__label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: .15rem 0;
+}
+.recipe-timer-panel__subtitle {
+  font-size: .85rem;
+  color: var(--gray-500);
+  margin: 0;
+}
+.recipe-timer-panel__close {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--gray-500);
+}
+.recipe-timer-panel__body {
+  margin-top: .75rem;
+  text-align: center;
+}
+.recipe-timer-panel__display {
+  font-size: 2.75rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: .05em;
+}
+.recipe-timer-panel__actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+}
+.timer-btn {
+  border-radius: 999px;
+  padding: .4rem 1.1rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+}
+.timer-btn[disabled] {
+  opacity: .4;
+  cursor: not-allowed;
+}
+.timer-btn--primary {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.recipe-timer-panel.is-alert .recipe-timer-panel__display {
+  color: var(--accent);
+}
+
 :root {
   --accent: #ff6b35;
   --border: rgba(0,0,0,.1);

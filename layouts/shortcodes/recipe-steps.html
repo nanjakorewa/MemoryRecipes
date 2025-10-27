@@ -11,8 +11,19 @@
             <div class="step-title">
               <h3>{{ $step.title }}</h3>
               <div class="step-meta">
-                {{ with $step.timer }}<span>⏱ {{ i18n "recipeTimerLabel" }}: {{ . }}</span>{{ end }}
-                {{ with $step.heat }}<span>🔥 {{ i18n "recipeHeatLabel" }}: {{ . }}</span>{{ end }}
+                {{ with $step.timer }}
+                  <button
+                    type="button"
+                    class="step-meta__chip step-meta__chip--timer"
+                    data-timer-duration="{{ . }}"
+                    data-timer-label="{{ printf "%s · %s" $.Page.Title $step.title | htmlEscape }}"
+                  >
+                    ⏱ {{ i18n "recipeTimerLabel" }}: {{ . }}
+                  </button>
+                {{ end }}
+                {{ with $step.heat }}
+                  <span class="step-meta__chip step-meta__chip--heat">🔥 {{ i18n "recipeHeatLabel" }}: {{ . }}</span>
+                {{ end }}
               </div>
             </div>
           </header>

@@ -2,16 +2,36 @@
 {{ if not $groups }}
   {{ warnf "ingredients shortcode requires [[ingredients]] front matter on %s" .Page.Path }}
 {{ else }}
+  {{ $pageKey := "" }}
+  {{ with .Page.File }}
+    {{ $pageKey = .UniqueID }}
+  {{ else }}
+    {{ $pageKey = md5 $.Page.RelPermalink }}
+  {{ end }}
   <section class="ingredient-groups">
-    {{ range $groups }}
+    {{ range $groupIndex, $group := $groups }}
       <article class="ingredient-group">
-        {{ with .group }}<h3>{{ . }}</h3>{{ end }}
+        {{ with $group.group }}<h3>{{ . }}</h3>{{ end }}
         <ul>
-          {{ range .items }}
-            <li>
-              <span class="ingredient-name">{{ .name }}</span>
-              <span class="ingredient-amount">{{ .amount }}</span>
-              {{ with .note }}<span class="ingredient-note">{{ . }}</span>{{ end }}
+          {{ range $itemIndex, $item := $group.items }}
+            {{ $checkID := printf "%s-ingredient-%d-%d" $pageKey $groupIndex $itemIndex }}
+            <li class="ingredient-item">
+              <label class="ingredient-check-label">
+                <input
+                  type="checkbox"
+                  class="ingredient-check"
+                  data-check-type="ingredient"
+                  data-check-id="{{ $checkID }}"
+                  data-check-name="{{ $item.name | plainify }}"
+                  data-check-amount="{{ $item.amount | plainify }}"
+                />
+                <span class="ingredient-check-faux" aria-hidden="true"></span>
+                <span class="ingredient-lines">
+                  <span class="ingredient-name">{{ $item.name }}</span>
+                  <span class="ingredient-amount">{{ $item.amount }}</span>
+                </span>
+              </label>
+              {{ with $item.note }}<span class="ingredient-note">{{ . }}</span>{{ end }}
             </li>
           {{ end }}
         </ul>

@@ -1,0 +1,5 @@
+﻿{{ $js := resources.Get "js/recipe.js" | js.Build (dict "targetPath" "js/recipe.js" "minify" true) }}
+{{ if $js }}
+  <script defer src="{{ $js.RelPermalink }}"></script>
+{{ end }}
+<audio id="recipe-alarm-audio" src="{{ "audio/目覚まし時計のアラーム.mp3" | relURL }}" preload="auto"></audio>
