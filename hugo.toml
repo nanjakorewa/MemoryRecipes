@@ -18,17 +18,18 @@ timeZone = "Asia/Tokyo"
   BookSearch = true
   BookToC = true
   BookPortableLinks = true
-  BookSection = "content"
+  BookSection = "*"
   description = "Multilingual foil-friendly recipes inspired by Japanese home cooking"
 
 [languages]
   [languages.ja]
     weight = 1
-    title = "ヘルスレシピ"
-    languageName = "日本語"
+    title = "\u6696\u7089\u30ec\u30b7\u30d4"
+    languageName = "\u65e5\u672c\u8a9e"
     contentDir = "content/ja"
     [languages.ja.params]
-      description = "包み焼きなど、手元で見やすい多言語レシピ集"
+      description = "\u716e\u7269\u3084\u713c\u304d\u7269\u306a\u3069\u3001\u624b\u9806\u304c\u898b\u3084\u3059\u3044\u591a\u8a00\u8a9e\u30ec\u30b7\u30d4\u96c6"
+      BookSection = "ja"
 
   [languages.en]
     weight = 2
@@ -37,6 +38,7 @@ timeZone = "Asia/Tokyo"
     contentDir = "content/en"
     [languages.en.params]
       description = "Japanese-inspired home cooking for busy weeknights"
+      BookSection = "en"
 
 [outputs]
   home = ["HTML", "RSS"]
@@ -48,4 +50,3 @@ timeZone = "Asia/Tokyo"
     ordered = true
     endLevel = 3
     startLevel = 2
-
