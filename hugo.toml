@@ -13,13 +13,21 @@ timeZone = "Asia/Tokyo"
 
 [params]
   BookTheme = "auto"
-  BookLogo = "images/logo.svg"
+  BookLogo = "images/logo.png"
   BookDateFormat = "2006-01-02"
   BookSearch = true
   BookToC = true
   BookPortableLinks = true
   BookSection = "*"
   description = "Multilingual foil-friendly recipes inspired by Japanese home cooking"
+  [params.firebase]
+    apiKey = "AIzaSyArcBO_f03k2W88KwhnCZdZZGC1Jgj0Tec"
+    authDomain = "vizir-512e4.firebaseapp.com"
+    projectId = "vizir-512e4"
+    appId = "1:540232784402:web:52912b65b611a65275d6cb"
+    storageBucket = "vizir-512e4.firebasestorage.app"
+    messagingSenderId = "540232784402"
+    measurementId = "G-HWKKPKW829"
 
 [languages]
   [languages.ja]

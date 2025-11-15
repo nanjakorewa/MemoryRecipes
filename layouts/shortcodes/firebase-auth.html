@@ -1,0 +1,44 @@
+{{ $lang := .Page.Language.Lang }}
+{{ $ja := dict "statusLoggedOut" "未ログイン" "statusLoggedIn" "ログイン中" "googleButton" "Googleでログイン" "logoutButton" "ログアウト" "helper" "Google アカウントでのみログインできます。" "loginSuccess" "ログインしました。" "logoutSuccess" "ログアウトしました。" "genericError" "エラーが発生しました。時間をおいて再度お試しください。" }}
+{{ $en := dict "statusLoggedOut" "Not signed in" "statusLoggedIn" "Logged in" "googleButton" "Sign in with Google" "logoutButton" "Log out" "helper" "You can only sign in with your Google account." "loginSuccess" "Signed in." "logoutSuccess" "Signed out." "genericError" "Something went wrong. Please try again later." }}
+{{ $copy := $en }}
+{{ if eq $lang "ja" }}
+  {{ $copy = $ja }}
+{{ end }}
+{{ $firebase := site.Params.firebase | default dict }}
+{{ $apiKey := default "" $firebase.apiKey }}
+{{ $hasFirebase := gt (len (trim $apiKey " \t")) 0 }}
+
+{{ if $hasFirebase }}
+  <section class="auth-panel" data-auth-root data-status-logged-out="{{ index $copy "statusLoggedOut" }}" data-status-logged-in="{{ index $copy "statusLoggedIn" }}" data-message-login-success="{{ index $copy "loginSuccess" }}" data-message-logout-success="{{ index $copy "logoutSuccess" }}" data-message-error-generic="{{ index $copy "genericError" }}">
+    <header class="auth-panel__header">
+      <p class="auth-panel__status" data-auth-status>{{ index $copy "statusLoggedOut" }}</p>
+      <p class="auth-panel__helper">{{ index $copy "helper" }}</p>
+    </header>
+
+    <div class="auth-panel__body auth-panel__body--single">
+      <button type="button" class="auth-google-btn" data-auth-google>
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <path d="M19.6 10.23c0-.68-.06-1.36-.18-2.02H10v3.83h5.4c-.23 1.27-.95 2.4-2.02 3.12v2.58h3.26c1.91-1.76 3-4.35 3-7.51z" fill="#4285F4" />
+          <path d="M10 20c2.7 0 4.97-.89 6.62-2.34l-3.26-2.58c-.9.6-2.07.96-3.36.96-2.58 0-4.78-1.74-5.56-4.08H1.06v2.62C2.69 17.98 6.09 20 10 20z" fill="#34A853" />
+          <path d="M4.44 11.96a5.99 5.99 0 0 1 0-3.9V5.44H1.06a10 10 0 0 0 0 9.12l3.38-2.6z" fill="#FBBC05" />
+          <path d="M10 3.96c1.47 0 2.79.51 3.83 1.52l2.87-2.87C14.95.97 12.7 0 10 0 6.09 0 2.69 2.02 1.06 5.44l3.38 2.62C5.22 5.7 7.42 3.96 10 3.96z" fill="#EA4335" />
+        </svg>
+        <span>{{ index $copy "googleButton" }}</span>
+      </button>
+    </div>
+
+    <div class="auth-panel__feedback" data-auth-message aria-live="polite"></div>
+
+    <button type="button" class="auth-panel__logout" data-auth-logout hidden>{{ index $copy "logoutButton" }}</button>
+  </section>
+
+  <script>
+    window.firebaseConfig = window.firebaseConfig || {{ $firebase | jsonify | safeJS }};
+  </script>
+  <script type="module" defer src="{{ "js/firebase-auth.js" | relURL }}"></script>
+{{ else }}
+  <p class="auth-panel__warning">
+    {{ if eq $lang "ja" }}Firebase の API キーなどの設定を `params.firebase` に追加するとログインボタンが有効になります。{{ else }}Add your Firebase keys to `params.firebase` to enable the login button.{{ end }}
+  </p>
+{{ end }}
